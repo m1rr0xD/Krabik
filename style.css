@@ -1,0 +1,465 @@
+/* ==============================================================
+   style.css — стили лендинга-меню «Очаг»
+   Домашний стиль: молочный фон, тёплый коричневый текст,
+   терракотовый акцент, клетчатая «скатерть» и рукописные подписи.
+
+   Сделано под телефон (iPhone 17 Pro и похожие, ширина ~400px).
+   На компьютере страница показывается узкой колонкой по центру.
+
+   Разделы файла:
+     1. Переменные — цвета, шрифты, скругления (меняйте здесь)
+     2. Базовые стили
+     3. Шапка и кнопки «Главная» / «Меню»
+     4. Переключение страниц
+     5. Общие элементы (заголовки, кнопка)
+     6. Главная страница (карточка-приветствие)
+     7. Меню — карточки блюд
+     8. Подвал с пожеланиями
+     9. Тёмная тема (включается сама, если на телефоне тёмный режим)
+    10. Служебное
+   ============================================================== */
+
+
+/* ---------- 1. ПЕРЕМЕННЫЕ ----------
+   Поменяйте цвета здесь — они применятся ко всей странице. */
+:root {
+  --bg: #FBF6EE;              /* фон страницы — цвет топлёного молока */
+  --card: #FFFCF7;            /* фон карточек */
+  --surface: #F3E8D8;         /* льняной фон: переключатель, подвал, метки */
+  --pill: #FFFCF7;            /* активная кнопка в переключателе */
+  --header-bg: rgba(251, 246, 238, 0.9); /* полупрозрачная шапка */
+  --text: #3B2A20;            /* основной текст — тёмный шоколад */
+  --muted: #7A6352;           /* второстепенный текст — кофе с молоком */
+  --line: #E9DCC9;            /* тонкие линии и рамки */
+  --accent: #A84E2A;          /* акцент — терракота (кнопки, иконки) */
+  --accent-text: #FFFCF7;     /* текст на кнопке */
+
+  --stitch: rgba(168, 78, 42, 0.35);      /* «строчка» на карточке-приветствии */
+  --gingham-band: rgba(168, 78, 42, 0.28);/* клетка на полоске в подвале */
+  --shadow: 0 2px 12px rgba(59, 42, 32, 0.07); /* мягкая тень */
+
+  --radius: 999px;            /* скругление кнопок (999px = «таблетка») */
+  --card-radius: 20px;        /* скругление карточек */
+  --page-width: 440px;        /* максимальная ширина контента */
+
+  /* Шрифты. Если Google Fonts не загрузятся — возьмутся запасные */
+  --font-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-head: "Lora", Georgia, "Times New Roman", serif;
+  --font-hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+
+  /* Отступы от «чёлки» / Dynamic Island и нижней полоски iPhone */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  color-scheme: light dark;
+}
+
+
+/* ---------- 2. БАЗОВЫЕ СТИЛИ ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* iPhone не будет сам увеличивать шрифт */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; /* без серой вспышки при нажатии */
+}
+
+/* Шапка, контент и подвал — одна узкая колонка по центру */
+.header,
+main,
+.footer {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/* ---------- 3. ШАПКА ---------- */
+.header {
+  position: sticky;   /* остаётся сверху при прокрутке */
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: calc(var(--safe-top) + 10px);
+  padding-bottom: 10px;
+  background: var(--header-bg);
+  -webkit-backdrop-filter: saturate(160%) blur(14px); /* эффект «матового стекла» */
+  backdrop-filter: saturate(160%) blur(14px);
+}
+
+/* Название ресторана с домиком */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.logo-icon {
+  color: var(--accent);
+}
+
+/* Переключатель «Главная / Меню» */
+.nav {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface);
+  border-radius: 999px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Активная кнопка. По умолчанию — «Главная» */
+.nav-home {
+  background: var(--pill);
+  color: var(--accent);
+  box-shadow: 0 1px 4px rgba(59, 42, 32, 0.1);
+}
+
+/* Когда открыто меню — активной становится «Меню» */
+body:has(#menu:target) .nav-home {
+  background: transparent;
+  color: var(--muted);
+  box-shadow: none;
+}
+
+body:has(#menu:target) .nav-menu {
+  background: var(--pill);
+  color: var(--accent);
+  box-shadow: 0 1px 4px rgba(59, 42, 32, 0.1);
+}
+
+
+/* ---------- 4. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ----------
+   :target — это раздел, на который ведёт ссылка (#menu).
+   Меню скрыто, пока адрес страницы не закончится на #menu.
+   Тогда меню показывается, а главная прячется. */
+.page {
+  padding-top: 24px;
+  padding-bottom: 44px;
+  scroll-margin-top: 200px; /* чтобы шапка не перекрывала начало раздела */
+}
+
+#menu {
+  display: none;
+}
+
+#menu:target {
+  display: block;
+}
+
+body:has(#menu:target) #home {
+  display: none;
+}
+
+
+/* ---------- 5. ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
+
+/* Большой заголовок шрифтом с засечками */
+.title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+/* Основная кнопка на всю ширину */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(168, 78, 42, 0.25);
+  transition: transform 0.15s, opacity 0.2s;
+}
+
+.button:active {
+  transform: scale(0.98); /* лёгкий отклик при нажатии */
+  opacity: 0.9;
+}
+
+
+/* ---------- 6. ГЛАВНАЯ СТРАНИЦА ---------- */
+
+/* Карточка-приветствие */
+.welcome {
+  position: relative;
+  padding: 30px 24px 26px;
+  background: var(--card);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+}
+
+/* Пунктирная «строчка» внутри карточки, как на вышитой салфетке */
+.welcome::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1.5px dashed var(--stitch);
+  border-radius: 20px;
+  pointer-events: none; /* не мешает нажимать на кнопку */
+}
+
+/* Рукописная подпись над заголовком */
+.eyebrow {
+  margin: 0 0 6px;
+  font-family: var(--font-hand);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+/* Текст приветствия */
+.lead {
+  margin: 14px 0 24px;
+  color: var(--muted);
+}
+
+/* Блок «Часы работы / Адрес» */
+.info {
+  margin: 24px 4px 0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.info dt {
+  color: var(--muted);
+}
+
+.info dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+}
+
+
+/* ---------- 7. МЕНЮ — КАРТОЧКИ БЛЮД ---------- */
+
+/* Рукописная подпись под заголовком «Меню» */
+.hint {
+  margin: 4px 0 20px;
+  font-family: var(--font-hand);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+/* Сетка карточек: две колонки одинаковой ширины */
+.dishes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Одна карточка */
+.dish {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+}
+
+/* Текст карточки */
+.dish-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 16px 14px 14px;
+}
+
+.dish-name {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.dish-desc {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* Количество поцелуев — всегда внизу карточки, даже если описание короткое */
+.dish-meta {
+  margin: auto 0 0;
+  padding-top: 14px;
+}
+
+/* Метка «Поцелуев: N» на льняном фоне */
+.dish-kisses {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* На очень узких телефонах — одна колонка */
+@media (max-width: 340px) {
+  .dishes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* ---------- 8. ПОДВАЛ С ПОЖЕЛАНИЯМИ ---------- */
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding-top: 48px;
+  padding-bottom: calc(32px + var(--safe-bottom));
+  background: var(--surface);
+  border-radius: 28px 28px 0 0;   /* скруглённый верх, как край скатерти */
+  text-align: center;
+}
+
+/* Полоска «клетчатой скатерти» по верхнему краю подвала */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background:
+    repeating-linear-gradient(0deg, var(--gingham-band) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(90deg, var(--gingham-band) 0 6px, transparent 6px 12px);
+}
+
+/* Сердечко над пожеланием */
+.wishes-heart {
+  display: block;
+  margin: 0 auto 14px;
+  color: var(--accent);
+}
+
+/* Текст пожелания */
+.wishes-text {
+  margin: 0 0 14px;
+  font-family: var(--font-head);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+/* Подпись «С наилучшими пожеланиями» — рукописным шрифтом */
+.wishes-sign {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--accent);
+}
+
+.contacts {
+  margin: 28px 0 4px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.copyright {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+
+/* ---------- 9. ТЁМНАЯ ТЕМА ----------
+   Включается сама, если на телефоне стоит тёмный режим.
+   Тёплые тёмные тона — как вечер на кухне.
+   Удалите этот блок, если тёмная тема не нужна. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #211913;
+    --card: #2B211A;
+    --surface: #33271F;
+    --pill: #4A3A2D;
+    --header-bg: rgba(33, 25, 19, 0.9);
+    --text: #F3E8DA;
+    --muted: #BCA996;
+    --line: #42342A;
+    --accent: #E38B5E;
+    --accent-text: #211913;
+    --stitch: rgba(227, 139, 94, 0.4);
+    --gingham-band: rgba(227, 139, 94, 0.3);
+    --shadow: none;
+  }
+}
+
+
+/* ---------- 10. СЛУЖЕБНОЕ ---------- */
+
+/* Если в настройках телефона отключена анимация — убираем её */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

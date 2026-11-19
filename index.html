@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+  ==============================================================
+  Лендинг-меню ресторана «Очаг»
+  Только HTML + CSS, без JavaScript — можно сразу выложить
+  на GitHub Pages (файлы index.html и style.css в одной папке).
+
+  Как устроен файл:
+    1. <head>     — настройки страницы, шрифты и подключение style.css
+    2. <header>   — шапка: домик с названием и кнопки «Главная» / «Меню»
+    3. #home      — главная: карточка-приветствие ресторана
+    4. #menu      — меню: карточки блюд
+    5. <footer>   — пожелания гостям и контакты (видно всегда)
+
+  Как переключаются страницы:
+    кнопки «Главная» и «Меню» — это обычные ссылки на #home
+    и #menu. CSS через селектор :target показывает нужный
+    раздел и прячет другой (style.css, раздел 4).
+
+  Что заменить на своё: название «Очаг», блюда, количество поцелуев,
+  а также [ЧАСЫ РАБОТЫ], [АДРЕС] и [ТЕЛЕФОН].
+  ==============================================================
+-->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+
+  <!-- Подгоняет страницу под ширину телефона.
+       viewport-fit=cover — страница занимает весь экран iPhone,
+       а отступы от «чёлки» и нижней полоски задаются в CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Цвет верхней панели браузера на телефоне (светлая и тёмная тема) -->
+  <meta name="theme-color" content="#FBF6EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#211913" media="(prefers-color-scheme: dark)">
+
+  <title>Крабик — ресторан домашней кухни</title>
+  <meta name="description" content="Меню ресторана домашней кухни «Очаг»">
+
+  <!-- Шрифты Google Fonts (все с русскими буквами):
+       Lora    — заголовки, тёплый шрифт с засечками;
+       Nunito  — основной текст, мягкий и округлый;
+       Caveat  — рукописный, для подписей и пожеланий. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Lora:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Все стили лежат в отдельном файле -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== ШАПКА =====================
+       Остаётся сверху при прокрутке.
+       Две кнопки переключают страницы. -->
+  <header class="header">
+    <a class="logo" href="#home">
+      <!-- Иконка-домик с трубой (рисунок SVG прямо в коде) -->
+      <svg class="logo-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 11l9-7 9 7"/>
+        <path d="M16 7V4h2v4.5"/>
+        <path d="M5 9.5V20h14V9.5"/>
+        <path d="M10 20v-5h4v5"/>
+      </svg>
+      Крабик
+    </a>
+
+    <nav class="nav" aria-label="Разделы сайта">
+      <a class="nav-link nav-home" href="#home">Главная</a>
+      <a class="nav-link nav-menu" href="#menu">Меню</a>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- ===================== ГЛАВНАЯ =====================
+         Видна при открытии сайта. Прячется, когда открыто меню. -->
+    <section id="home" class="page">
+
+      <!-- Карточка-приветствие с «прошитой» пунктирной рамкой -->
+      <div class="welcome">
+        <p class="eyebrow">ресторан домашней кухни</p>
+
+        <h1 class="title">Добро пожаловать в&nbsp;«Крабик🦀»</h1>
+
+        <p class="lead">
+          Рады видеть вас! Мы готовим каждый день, как дома.
+          Загляните в меню и выберите блюда по душе.
+        </p>
+
+        <!-- Большая кнопка, которая ведёт в меню -->
+        <a class="button" href="#menu">Открыть меню</a>
+      </div>
+
+      <!-- Короткая информация о ресторане -->
+      <dl class="info">
+        <div class="info-row">
+          <dt>Часы работы</dt>
+          <dd>Для вас всегда</dd>
+        </div>
+        <div class="info-row">
+          <dt>Адрес</dt>
+          <dd>Ваше сердце</dd>
+        </div>
+      </dl>
+    </section>
+
+
+    <!-- ===================== МЕНЮ =====================
+         Открывается по кнопке «Меню» (адрес страницы #menu).
+         Блюда стоят текстовыми карточками в две колонки.
+
+         ЧТОБЫ ДОБАВИТЬ БЛЮДО: скопируйте один блок <li> целиком
+         и поменяйте в нём название, описание и количество поцелуев. -->
+    <section id="menu" class="page">
+      <h2 class="title">Меню</h2>
+      <p class="hint">приготовлено сегодня</p>
+
+      <ul class="dishes">
+
+        <!-- Карточка 1 -->
+        <li class="dish">
+          <!-- Карточка только из текста: название, описание и количество поцелуев -->
+          <div class="dish-body">
+            <h3 class="dish-name">Огененные пельмени в соусе дракона</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 12</span>
+            </p>
+          </div>
+        </li>
+
+        <!-- Карточка 2 -->
+        <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Королевский салат</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 15</span>
+            </p>
+          </div>
+        </li>
+
+         <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Пиво</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 11</span>
+            </p>
+          </div>
+        </li>
+
+         <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Козырный кампотик</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 15</span>
+            </p>
+          </div>
+        </li>
+
+        <!-- Карточка 3 -->
+        <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Королевский салат</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 8</span>
+            </p>
+          </div>
+        </li>
+
+        <!-- Карточка 4 -->
+        <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Потужный живчик</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 6</span>
+            </p>
+          </div>
+        </li>
+
+        <!-- Карточка 5 -->
+        <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Бутик королевской шпротиной</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 10</span>
+            </p>
+          </div>
+        </li>
+
+        <!-- Карточка 6 -->
+        <li class="dish">
+          <div class="dish-body">
+            <h3 class="dish-name">Бутик королевской шпротиной</h3>
+            <p class="dish-meta">
+              <span class="dish-kisses">Поцелуев: 20</span>
+            </p>
+          </div>
+        </li>
+
+      </ul>
+    </section>
+
+  </main>
+
+
+  <!-- ===================== ПОДВАЛ =====================
+       Пожелания гостям и контакты. Виден на обеих страницах.
+       Сверху — полоска «клетчатой скатерти» (рисуется в CSS). -->
+  <footer class="footer">
+    <!-- Сердечко-украшение -->
+    <svg class="wishes-heart" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>
+    </svg>
+
+    <p class="wishes-text">
+      Спасибо, что заглянули к нам!
+      Желаем вам вкусного дня и тёплых встреч за нашим столом.
+    </p>
+
+    <!-- Подпись рукописным шрифтом -->
+    <p class="wishes-sign">
+      С наилучшими пожеланиями,<br>
+      команда «Крабик»
+    </p>
+
+    <p class="copyright">© 2026 Крабик</p>
+  </footer>
+
+</body>
+</html>
